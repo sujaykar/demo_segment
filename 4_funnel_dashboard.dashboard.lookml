@@ -11,7 +11,7 @@
     model: tracks
     explore: track_facts
     field: track_facts.event
-    default_value: 'signup'
+    default_value: 'click_gtb'
 
   - name: event2
     title: 'Second Event'
