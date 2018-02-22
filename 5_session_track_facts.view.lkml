@@ -8,10 +8,10 @@ view: session_trk_facts {
     sql: SELECT s.session_id
         , MAX(map.received_at) AS ended_at
         , count(distinct map.event_id) AS num_pvs
-        , count(case when map.event = 'app_loaded' then event_id else null end) as cnt_app_loaded
-        , count(case when map.event = 'login' then event_id else null end) as cnt_login
-        , count(case when map.event = 'subscribed_to_blog' then event_id else null end) as cnt_subscribed_to_blog
-        , count(case when map.event = 'signup' then event_id else null end) as cnt_signup
+        , count(case when map.event = 'clicked_gtb' then event_id else null end) as cnt_click_gtb
+        , count(case when map.event = 'add_to_cart' then event_id else null end) as cnt_add_to_cart
+        , count(case when map.event = 'completed_checkout_nmao' then event_id else null end) as cnt_completed_checkout_nmao
+        , count(case when map.event = 'completed_order' then event_id else null end) as cnt_completed_order
       FROM ${sessions_trk.SQL_TABLE_NAME} AS s
       LEFT JOIN ${track_facts.SQL_TABLE_NAME} as map on map.session_id = s.session_id
       GROUP BY 1
@@ -40,24 +40,24 @@ view: session_trk_facts {
     sql: ${number_events} = 1 ;;
   }
 
-  dimension: app_loaded {
+  dimension: clicked_gtb {
     type: yesno
-    sql: ${TABLE}.cnt_app_loaded > 0 ;;
+    sql: ${TABLE}.cnt_click_gtb > 0 ;;
   }
 
-  dimension: login {
+  dimension: add_to_cart {
     type: yesno
-    sql: ${TABLE}.cnt_login > 0 ;;
+    sql: ${TABLE}.cnt_add_to_cart > 0 ;;
   }
 
-  dimension: subscribed_to_blog {
+  dimension: completed_checkout_nmao {
     type: yesno
-    sql: ${TABLE}.cnt_subscribed_to_blog > 0 ;;
+    sql: ${TABLE}.cnt_completed_checkout_nmao > 0 ;;
   }
 
-  dimension: signup {
+  dimension: completed_order {
     type: yesno
-    sql: ${TABLE}.cnt_signup > 0 ;;
+    sql: ${TABLE}.cnt_completed_order > 0 ;;
   }
 
   dimension: num_pvs {
@@ -65,38 +65,38 @@ view: session_trk_facts {
     sql: ${TABLE}.num_pvs ;;
   }
 
-  measure: count_app_loaded {
+  measure: cnt_click_gtb {
     type: count
 
     filters: {
-      field: app_loaded
+      field: clicked_gtb
       value: "yes"
     }
   }
 
-  measure: count_login {
+  measure: cnt_add_to_cart {
     type: count
 
     filters: {
-      field: login
+      field: add_to_cart
       value: "yes"
     }
   }
 
-  measure: count_subscribed_to_blog {
+  measure: cnt_completed_checkout_nmao {
     type: count
 
     filters: {
-      field: subscribed_to_blog
+      field: completed_checkout_nmao
       value: "yes"
     }
   }
 
-  measure: count_signup {
+  measure: cnt_completed_order {
     type: count
 
     filters: {
-      field: signup
+      field: completed_order
       value: "yes"
     }
   }
