@@ -7,6 +7,7 @@ include: "*.view"
 # - explore: pages
 
 explore: event_facts {
+  hidden:yes
   view_label: "Events"
   label: "Events"
 
