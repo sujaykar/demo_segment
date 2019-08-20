@@ -70,9 +70,19 @@ view: pages {
     sql: ${TABLE}.uuid ;;
   }
 
+  dimension: context_device_type {
+    type: string
+    sql: ${TABLE}.context_device_type ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, context_campaign_name, name, users.id]
+  }
+
+  measure: count_user_ids {
+    type: count_distinct
+    sql: ${user_id} ;;
   }
 
   measure: count_visitors {

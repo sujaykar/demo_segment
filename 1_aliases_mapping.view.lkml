@@ -1,6 +1,6 @@
 view: aliases_mapping {
   derived_table: {
-    sql_trigger_value: select current_date ;;
+    sql_trigger_value: select CONVERT_TIMEZONE ('UTC', 'PKT', current_date) ;;
     sortkeys: ["looker_visitor_id", "alias"]
     distribution: "alias"
     sql: with

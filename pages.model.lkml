@@ -9,6 +9,7 @@ include: "*.view"
 explore: event_facts {
   view_label: "Events"
   label: "Events"
+  hidden: yes
 
   join: pages {
     view_label: "Events"
